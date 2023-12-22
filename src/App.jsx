@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import axios from 'axios'
 
 function App() {
   const urls = 'https://reqres.in/api/users'
   const [url,Seturl] = useState([])
-  useEffect(() => {
+
     async function fetchUrl() {
       const res = await axios.get(urls);
       console.log(res.data.data);
       Seturl(res.data.data)
     }
-    fetchUrl();
-  }, []);
+  
   return (
     <div>
       <table className="table">
@@ -23,7 +22,9 @@ function App() {
       <th scope="col">LastName</th>
       <th scope="col">User Image</th>
     </tr>
-  </thead>
+  </thead> 
+  {url.length === 0 ? 
+    <button className='btn btn-primary' onClick={()=>fetchUrl()}>Get Users</button>:null}
   <tbody>
   {url.map((users)=>{
     return  <tr key={users.id}>
